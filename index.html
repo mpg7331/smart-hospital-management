@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartCare Hospital</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#eef7fb;
+    color:#18324a;
+}
+
+.screen{
+    display:none;
+    min-height:100vh;
+}
+
+.screen.active{
+    display:block;
+}
+
+/* LOGIN */
+
+.login{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#0879d1,#55c8e8);
+    padding:20px;
+}
+
+.login-card{
+    width:950px;
+    min-height:570px;
+    background:white;
+    border-radius:25px;
+    overflow:hidden;
+    display:flex;
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
+}
+
+.login-image{
+    width:48%;
+    background:linear-gradient(145deg,#0568b8,#28b8df);
+    color:white;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:40px;
+}
+
+.hospital-icon{
+    font-size:80px;
+    margin-bottom:20px;
+}
+
+.login-image h1{
+    font-size:38px;
+    margin-bottom:15px;
+}
+
+.login-image p{
+    line-height:1.7;
+}
+
+.login-form{
+    width:52%;
+    padding:65px 55px;
+}
+
+.login-form h2{
+    color:#0568b8;
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.small{
+    color:#718096;
+    margin-bottom:30px;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin:18px 0 8px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:14px;
+    border:1px solid #ccd8e2;
+    border-radius:10px;
+    font-size:15px;
+    outline:none;
+}
+
+input:focus,select:focus,textarea:focus{
+    border-color:#0879d1;
+}
+
+.btn{
+    border:0;
+    background:#0879d1;
+    color:white;
+    padding:14px 25px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#055fa5;
+}
+
+.full{
+    width:100%;
+    margin-top:25px;
+}
+
+.error{
+    color:#e53935;
+    margin-top:10px;
+}
+
+/* HEADER */
+
+.header{
+    height:75px;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+
+.logo{
+    color:#0879d1;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.profile{
+    color:#526779;
+}
+
+.container{
+    max-width:1050px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+.heading{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.heading h1{
+    color:#0568b8;
+    margin-bottom:10px;
+}
+
+.heading p{
+    color:#718096;
+}
+
+/* LOCATION CARDS */
+
+.option-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.option{
+    background:white;
+    padding:28px;
+    border-radius:18px;
+    text-align:center;
+    cursor:pointer;
+    border:2px solid transparent;
+    box-shadow:0 5px 20px rgba(0,0,0,.07);
+    transition:.2s;
+}
+
+.option:hover{
+    transform:translateY(-5px);
+    border-color:#42b9e8;
+}
+
+.option.selected{
+    border-color:#0879d1;
+    background:#edf8ff;
+}
+
+.option-icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.option h3{
+    margin-bottom:8px;
+}
+
+.option p{
+    color:#718096;
+}
+
+.next-area{
+    text-align:center;
+    margin-top:35px;
+}
+
+.next-area .btn{
+    min-width:180px;
+}
+
+/* HOSPITAL */
+
+.hospital-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+}
+
+.hospital{
+    background:white;
+    padding:28px;
+    border-radius:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.07);
+    cursor:pointer;
+    border:2px solid transparent;
+}
+
+.hospital:hover{
+    border-color:#42b9e8;
+}
+
+.hospital.selected{
+    border-color:#0879d1;
+    background:#edf8ff;
+}
+
+.hospital-icon2{
+    font-size:50px;
+    float:left;
+    margin-right:20px;
+}
+
+.hospital h3{
+    padding-top:8px;
+    margin-bottom:8px;
+}
+
+.hospital p{
+    color:#718096;
+    line-height:1.6;
+}
+
+/* DOCTORS */
+
+.doctor-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.doctor{
+    background:white;
+    padding:25px;
+    text-align:center;
+    border-radius:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.07);
+    border:2px solid transparent;
+}
+
+.doctor.selected{
+    border-color:#0879d1;
+    background:#edf8ff;
+}
+
+.doctor-photo{
+    width:90px;
+    height:90px;
+    background:#dff3ff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:45px;
+    margin:0 auto 15px;
+}
+
+.doctor h3{
+    margin-bottom:8px;
+}
+
+.speciality{
+    color:#0879d1;
+    margin-bottom:8px;
+}
+
+.stars{
+    color:#efa900;
+    margin-bottom:15px;
+}
+
+/* FORM CARD */
+
+.form-card{
+    max-width:700px;
+    margin:auto;
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.two{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+/* SUMMARY */
+
+.summary{
+    max-width:750px;
+    margin:auto;
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    padding:15px 0;
+    border-bottom:1px solid #e5edf2;
+}
+
+.summary-row:last-child{
+    border-bottom:0;
+}
+
+.summary-row span:first-child{
+    color:#718096;
+}
+
+.success{
+    max-width:650px;
+    margin:60px auto;
+    background:white;
+    text-align:center;
+    padding:50px;
+    border-radius:25px;
+    box-shadow:0 8px 25px rgba(0,0,0,.1);
+}
+
+.success-icon{
+    width:85px;
+    height:85px;
+    background:#d9f7e5;
+    color:#16a34a;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 20px;
+    font-size:50px;
+}
+
+.appointment-id{
+    background:#edf8ff;
+    padding:18px;
+    border-radius:12px;
+    margin:25px 0;
+    color:#0879d1;
+    font-weight:bold;
+}
+
+.back{
+    background:#64748b;
+    margin-right:10px;
+}
+
+/* APPOINTMENT */
+
+.appointment-card{
+    max-width:750px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.status{
+    display:inline-block;
+    background:#dcfce7;
+    color:#15803d;
+    padding:7px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:800px){
+
+    .login-card{
+        width:100%;
+        flex-direction:column;
+    }
+
+    .login-image,
+    .login-form{
+        width:100%;
+    }
+
+    .option-grid,
+    .doctor-grid,
+    .hospital-grid{
+        grid-template-columns:1fr;
+    }
+
+    .two{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+
+<div id="loginScreen" class="screen active">
+
+<div class="login">
+
+<div class="login-card">
+
+<div class="login-image">
+
+<div class="hospital-icon">🏥</div>
+
+<h1>SmartCare</h1>
+
+<p>
+Smart Hospital Appointment System
+</p>
+
+<br>
+
+<p>
+Find • Choose • Book • Care
+</p>
+
+</div>
+
+<div class="login-form">
+
+<h2>Patient Login</h2>
+
+<p class="small">
+Enter your details to book a doctor appointment
+</p>
+
+<label>Patient Name</label>
+
+<input
+type="text"
+id="loginName"
+placeholder="Enter your name">
+
+<label>Mobile Number</label>
+
+<input
+type="tel"
+id="loginMobile"
+placeholder="Enter 10 digit mobile number"
+maxlength="10">
+
+<p id="loginError" class="error"></p>
+
+<button class="btn full" onclick="login()">
+Continue →
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= MAIN HEADER ================= -->
+
+<div id="mainApp" style="display:none;">
+
+<div class="header">
+
+<div class="logo">🏥 SmartCare</div>
+
+<div class="profile">
+👤 <span id="displayName">Patient</span>
+</div>
+
+</div>
+
+
+<!-- ================= DISTRICT ================= -->
+
+<div id="districtScreen" class="screen active">
+
+<div class="container">
+
+<div class="heading">
+
+<h1>Select Your District</h1>
+
+<p>
+Choose the district where you want to visit the hospital
+</p>
+
+</div>
+
+<div class="option-grid">
+
+<div class="option" onclick="selectDistrict(this,'Chennai')">
+<div class="option-icon">🏙️</div>
+<h3>Chennai</h3>
+<p>Major city hospitals</p>
+</div>
+
+<div class="option" onclick="selectDistrict(this,'Coimbatore')">
+<div class="option-icon">🌆</div>
+<h3>Coimbatore</h3>
+<p>Healthcare centres</p>
+</div>
+
+<div class="option" onclick="selectDistrict(this,'Madurai')">
+<div class="option-icon">🏛️</div>
+<h3>Madurai</h3>
+<p>Medical services</p>
+</div>
+
+<div class="option" onclick="selectDistrict(this,'Erode')">
+<div class="option-icon">🌿</div>
+<h3>Erode</h3>
+<p>Nearby hospitals</p>
+</div>
+
+<div class="option" onclick="selectDistrict(this,'Salem')">
+<div class="option-icon">🏞️</div>
+<h3>Salem</h3>
+<p>Healthcare facilities</p>
+</div>
+
+<div class="option" onclick="selectDistrict(this,'Tiruchirappalli')">
+<div class="option-icon">📍</div>
+<h3>Tiruchirappalli</h3>
+<p>Hospital services</p>
+</div>
+
+</div>
+
+<div class="next-area">
+<button class="btn" onclick="goArea()">Next →</button>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= AREA ================= -->
+
+<div id="areaScreen" class="screen">
+
+<div class="container">
+
+<div class="heading">
+
+<h1>Select Your Area</h1>
+
+<p id="districtText"></p>
+
+</div>
+
+<div id="areaOptions" class="option-grid"></div>
+
+<div class="next-area">
+
+<button class="btn back" onclick="showScreen('districtScreen')">
+← Back
+</button>
+
+<button class="btn" onclick="goHospital()">
+Next →
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= HOSPITAL ================= -->
+
+<div id="hospitalScreen" class="screen">
+
+<div class="container">
+
+<div class="heading">
+
+<h1>Select Hospital</h1>
+
+<p id="areaText"></p>
+
+</div>
+
+<div id="hospitalOptions" class="hospital-grid"></div>
+
+<div class="next-area">
+
+<button class="btn back" onclick="showScreen('areaScreen')">
+← Back
+</button>
+
+<button class="btn" onclick="goDepartment()">
+Next →
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= DEPARTMENT ================= -->
+
+<div id="departmentScreen" class="screen">
+
+<div class="container">
+
+<div class="heading">
+
+<h1>Choose Department</h1>
+
+<p>Select the type of doctor you need</p>
+
+</div>
+
+<div class="option-grid">
+
+<div class="option" onclick="selectDepartment(this,'Cardiology')">
+<div class="option-icon">❤️</div>
+<h3>Cardiology</h3>
+<p>Heart specialist</p>
+</div>
+
+<div class="option" onclick="selectDepartment(this,'Neurology')">
+<div class="option-icon">🧠</div>
+<h3>Neurology</h3>
+<p>Brain specialist</p>
+</div>
+
+<div class="option" onclick="selectDepartment(this,'Orthopedics')">
+<div class="option-icon">🦴</div>
+<h3>Orthopedics</h3>
+<p>Bone specialist</p>
+</div>
+
+<div class="option" onclick="selectDepartment(this,'Pediatrics')">
+<div class="option-icon">👶</div>
+<h3>Pediatrics</h3>
+<p>Child specialist</p>
+</div>
+
+<div class="option" onclick="selectDepartment(this,'Dermatology')">
+<div class="option-icon">✨</div>
+<h3>Dermatology</h3>
+<p>Skin specialist</p>
+</div>
+
+<div class="option" onclick="selectDepartment(this,'General Medicine')">
+<div class="option-icon">🩺</div>
+<h3>General Medicine</h3>
+<p>General physician</p>
+</div>
+
+</div>
+
+<div class="next-area">
+
+<button class="btn back" onclick="showScreen('hospitalScreen')">
+← Back
+</button>
+
+<button class="btn" onclick="goDoctor()">
+Find Doctors →
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= DOCTOR ================= -->
+
+<div id="doctorScreen" class="screen">
+
+<div class="container">
+
+<div class="heading">
+
+<h1>Available Doctors</h1>
+
+<p id="doctorInfo"></p>
+
+</div>
+
+<div id="doctorOptions" class="doctor-grid"></div>
+
+<div class="next-area">
+
+<button class="btn back" onclick="showScreen('departmentScreen')">
+← Back
+</button>
+
+<button class="btn" onclick="goAppointment()">
+Choose Doctor →
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= APPOINTMENT ================= -->
+
+<div id="appointmentScreen" class="screen">
+
+<div class="container">
+
+<div class="heading">
+
+<h1>Book Your Appointment</h1>
+
+<p>Select your preferred date and time</p>
+
+</div>
+
+<div class="form-card">
+
+<div id="bookingDoctor"
+style="background:#edf8ff;padding:18px;border-radius:12px;margin-bottom:20px;">
+</div>
+
+<label>Appointment Date</label>
+
+<input type="date" id="appointmentDate">
+
+<label>Available Time</label>
+
+<select id="appointmentTime">
+
+<option value="">Select time</option>
+<option>09:00 AM</option>
+<option>10:00 AM</option>
+<option>11:00 AM</option>
+<option>12:00 PM</option>
+<option>02:00 PM</option>
+<option>03:00 PM</option>
+<option>04:00 PM</option>
+<option>05:00 PM</option>
+
+</select>
+
+<div class="next-area">
+
+<button class="btn back"
+onclick="showScreen('doctorScreen')">
+← Back
+</button>
+
+<button class="btn"
+onclick="goPatient()">
+Next →
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= PATIENT DETAILS ================= -->
+
+<div id="patientScreen" class="screen">
+
+<div class="container">
+
+<div class="heading">
+
+<h1>Patient Details</h1>
+
+<p>Enter the patient's information</p>
+
+</div>
+
+<div class="form-card">
+
+<div class="two">
+
+<div>
+
+<label>Patient Name</label>
+
+<input
+type="text"
+id="patientName"
+placeholder="Enter patient name">
+
+</div>
+
+<div>
+
+<label>Mobile Number</label>
+
+<input
+type="tel"
+id="patientMobile"
+maxlength="10"
+placeholder="Enter mobile number">
+
+</div>
+
+</div>
+
+<label>Age</label>
+
+<input
+type="number"
+id="patientAge"
+placeholder="Enter age">
+
+<label>Gender</label>
+
+<select id="gender">
+
+<option value="">Select gender</option>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+
+</select>
+
+<label>Reason for Visit</label>
+
+<textarea
+id="reason"
+rows="4"
+placeholder="Tell us the reason for your visit"></textarea>
+
+<div class="next-area">
+
+<button class="btn back"
+onclick="showScreen('appointmentScreen')">
+← Back
+</button>
+
+<button class="btn"
+onclick="goSummary()">
+Review Appointment →
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= SUMMARY ================= -->
+
+<div id="summaryScreen" class="screen">
+
+<div class="container">
+
+<div class="heading">
+
+<h1>Review Appointment</h1>
+
+<p>Please check your details before confirming</p>
+
+</div>
+
+<div class="summary">
+
+<div class="summary-row">
+<span>Patient</span>
+<b id="sName"></b>
+</div>
+
+<div class="summary-row">
+<span>Mobile</span>
+<b id="sMobile"></b>
+</div>
+
+<div class="summary-row">
+<span>District</span>
+<b id="sDistrict"></b>
+</div>
+
+<div class="summary-row">
+<span>Area</span>
+<b id="sArea"></b>
+</div>
+
+<div class="summary-row">
+<span>Hospital</span>
+<b id="sHospital"></b>
+</div>
+
+<div class="summary-row">
+<span>Department</span>
+<b id="sDepartment"></b>
+</div>
+
+<div class="summary-row">
+<span>Doctor</span>
+<b id="sDoctor"></b>
+</div>
+
+<div class="summary-row">
+<span>Date</span>
+<b id="sDate"></b>
+</div>
+
+<div class="summary-row">
+<span>Time</span>
+<b id="sTime"></b>
+</div>
+
+<div class="summary-row">
+<span>Age / Gender</span>
+<b id="sAgeGender"></b>
+</div>
+
+<div class="summary-row">
+<span>Reason</span>
+<b id="sReason"></b>
+</div>
+
+<div class="next-area">
+
+<button class="btn back"
+onclick="showScreen('patientScreen')">
+← Edit
+</button>
+
+<button class="btn"
+onclick="confirmAppointment()">
+✓ Confirm Appointment
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= SUCCESS ================= -->
+
+<div id="successScreen" class="screen">
+
+<div class="container">
+
+<div class="success">
+
+<div class="success-icon">✓</div>
+
+<h1>Appointment Confirmed!</h1>
+
+<p style="margin-top:12px;color:#718096;">
+Your doctor appointment has been successfully booked.
+</p>
+
+<div class="appointment-id">
+Appointment ID: <span id="appointmentId"></span>
+</div>
+
+<div id="successDetails"></div>
+
+<br>
+
+<button class="btn"
+onclick="showMyAppointment()">
+View My Appointment
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= MY APPOINTMENT ================= -->
+
+<div id="myAppointmentScreen" class="screen">
+
+<div class="container">
+
+<div class="heading">
+
+<h1>My Appointment</h1>
+
+<p>Your upcoming hospital appointment</p>
+
+</div>
+
+<div class="appointment-card">
+
+<div style="display:flex;justify-content:space-between;">
+
+<h2>🏥 <span id="mHospital"></span></h2>
+
+<span class="status">CONFIRMED</span>
+
+</div>
+
+<br>
+
+<p><b>Doctor:</b> <span id="mDoctor"></span></p>
+
+<p><b>Department:</b> <span id="mDepartment"></span></p>
+
+<p><b>Date:</b> <span id="mDate"></span></p>
+
+<p><b>Time:</b> <span id="mTime"></span></p>
+
+<p><b>Patient:</b> <span id="mPatient"></span></p>
+
+<p><b>Mobile:</b> <span id="mMobile"></span></p>
+
+<p><b>Appointment ID:</b> <span id="mId"></span></p>
+
+<br>
+
+<button class="btn" onclick="showScreen('districtScreen')">
+Book Another Appointment
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* ================= DATA ================= */
+
+let data = {
+    name:"",
+    mobile:"",
+    district:"",
+    area:"",
+    hospital:"",
+    department:"",
+    doctor:"",
+    date:"",
+    time:"",
+    age:"",
+    gender:"",
+    reason:"",
+    id:""
+};
+
+const areas = {
+    Chennai:["Anna Nagar","T Nagar","Velachery"],
+    Coimbatore:["Gandhipuram","RS Puram","Peelamedu"],
+    Madurai:["Anna Nagar","KK Nagar","Mattuthavani"],
+    Erode:["Perundurai","Surampatti","Bhavani"],
+    Salem:["Fairlands","Hasthampatti","Ammapet"],
+    Tiruchirappalli:["Srirangam","Thillai Nagar","Woraiyur"]
+};
+
+const hospitals = {
+    "Anna Nagar":["City Care Hospital","Apollo Medical Centre"],
+    "T Nagar":["Sunrise Hospital","Metro Care Hospital"],
+    "Velachery":["Green Life Hospital","City Health Centre"],
+
+    "Gandhipuram":["Kovai Care Hospital","Royal Medical Centre"],
+    "RS Puram":["Prime Hospital","Kovai Health"],
+    "Peelamedu":["KMCH Medical Centre","LifeCare Hospital"],
+
+    "KK Nagar":["Madurai Care Hospital","Meenakshi Medical Centre"],
+    "Mattuthavani":["City Health Hospital","Vel Hospital"],
+
+    "Perundurai":["Erode Medical Centre","Life Hospital"],
+    "Surampatti":["Smart Care Hospital","City Hospital"],
+    "Bhavani":["Bhavani Health Centre","Royal Hospital"],
+
+    "Fairlands":["Salem Care Hospital","Metro Hospital"],
+    "Hasthampatti":["Salem Health Centre","City Medical"],
+    "Ammapet":["Amma Hospital","LifeCare Salem"],
+
+    "Srirangam":["Trichy Care Hospital","Cauvery Hospital"],
+    "Thillai Nagar":["Royal Trichy Hospital","City Medical"],
+    "Woraiyur":["Trichy Health Centre","Prime Hospital"]
+};
+
+const doctorData = [
+    {
+        name:"Dr. Arun Kumar",
+        speciality:"Cardiologist",
+        department:"Cardiology",
+        exp:"10 Years",
+        rating:"4.8"
+    },
+    {
+        name:"Dr. Priya Nair",
+        speciality:"Neurologist",
+        department:"Neurology",
+        exp:"8 Years",
+        rating:"4.7"
+    },
+    {
+        name:"Dr. Ravi Shankar",
+        speciality:"Orthopedic Specialist",
+        department:"Orthopedics",
+        exp:"12 Years",
+        rating:"4.9"
+    },
+    {
+        name:"Dr. Meena Raj",
+        speciality:"Pediatrician",
+        department:"Pediatrics",
+        exp:"7 Years",
+        rating:"4.8"
+    },
+    {
+        name:"Dr. Sneha Kumar",
+        speciality:"Dermatologist",
+        department:"Dermatology",
+        exp:"6 Years",
+        rating:"4.6"
+    },
+    {
+        name:"Dr. Karthik S",
+        speciality:"General Physician",
+        department:"General Medicine",
+        exp:"9 Years",
+        rating:"4.7"
+    }
+];
+
+
+/* ================= LOGIN ================= */
+
+function login(){
+
+    let name =
+        document.getElementById("loginName").value.trim();
+
+    let mobile =
+        document.getElementById("loginMobile").value.trim();
+
+    let error =
+        document.getElementById("loginError");
+
+    if(name === "" || mobile === ""){
+
+        error.innerText =
+        "Please enter your name and mobile number.";
+
+        return;
+    }
+
+    if(!/^[0-9]{10}$/.test(mobile)){
+
+        error.innerText =
+        "Please enter a valid 10 digit mobile number.";
+
+        return;
+    }
+
+    data.name = name;
+    data.mobile = mobile;
+
+    document.getElementById("displayName")
+        .innerText = name;
+
+    document.getElementById("loginScreen")
+        .style.display="none";
+
+    document.getElementById("mainApp")
+        .style.display="block";
+
+    showScreen("districtScreen");
+}
+
+
+/* ================= SCREEN ================= */
+
+function showScreen(id){
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(function(s){
+            s.classList.remove("active");
+        });
+
+    document
+        .getElementById(id)
+        .classList.add("active");
+}
+
+
+/* ================= DISTRICT ================= */
+
+function selectDistrict(element,district){
+
+    document
+        .querySelectorAll("#districtScreen .option")
+        .forEach(function(x){
+            x.classList.remove("selected");
+        });
+
+    element.classList.add("selected");
+
+    data.district = district;
+}
+
+
+function goArea(){
+
+    if(data.district === ""){
+
+        alert("Please select a district.");
+
+        return;
+    }
+
+    let box =
+        document.getElementById("areaOptions");
+
+    box.innerHTML="";
+
+    document.getElementById("districtText")
+        .innerText =
+        "District: " + data.district;
+
+    areas[data.district].forEach(function(area){
+
+        box.innerHTML += `
+
+        <div class="option"
+        onclick="selectArea(this,'${area}')">
+
+        <div class="option-icon">📍</div>
+
+        <h3>${area}</h3>
+
+        <p>Available hospitals</p>
+
+        </div>
+
+        `;
+
+    });
+
+    showScreen("areaScreen");
+}
+
+
+/* ================= AREA ================= */
+
+function selectArea(element,area){
+
+    document
+        .querySelectorAll("#areaScreen .option")
+        .forEach(function(x){
+            x.classList.remove("selected");
+        });
+
+    element.classList.add("selected");
+
+    data.area = area;
+}
+
+
+function goHospital(){
+
+    if(data.area === ""){
+
+        alert("Please select an area.");
+
+        return;
+    }
+
+    let box =
+        document.getElementById("hospitalOptions");
+
+    box.innerHTML="";
+
+    document.getElementById("areaText")
+        .innerText =
+        data.district + " • " + data.area;
+
+    hospitals[data.area].forEach(function(hospital){
+
+        box.innerHTML += `
+
+        <div class="hospital"
+        onclick="selectHospital(this,'${hospital}')">
+
+        <div class="hospital-icon2">🏥</div>
+
+        <h3>${hospital}</h3>
+
+        <p>
+        Multi-specialty hospital<br>
+        24/7 healthcare services
+        </p>
+
+        <div style="clear:both;"></div>
+
+        </div>
+
+        `;
+
+    });
+
+    showScreen("hospitalScreen");
+}
+
+
+/* ================= HOSPITAL ================= */
+
+function selectHospital(element,hospital){
+
+    document
+        .querySelectorAll("#hospitalScreen .hospital")
+        .forEach(function(x){
+            x.classList.remove("selected");
+        });
+
+    element.classList.add("selected");
+
+    data.hospital = hospital;
+}
+
+
+function goDepartment(){
+
+    if(data.hospital === ""){
+
+        alert("Please select a hospital.");
+
+        return;
+    }
+
+    showScreen("departmentScreen");
+}
+
+
+/* ================= DEPARTMENT ================= */
+
+function selectDepartment(element,department){
+
+    document
+        .querySelectorAll("#departmentScreen .option")
+        .forEach(function(x){
+            x.classList.remove("selected");
+        });
+
+    element.classList.add("selected");
+
+    data.department = department;
+}
+
+
+function goDoctor(){
+
+    if(data.department === ""){
+
+        alert("Please select a department.");
+
+        return;
+    }
+
+    let box =
+        document.getElementById("doctorOptions");
+
+    box.innerHTML="";
+
+    document.getElementById("doctorInfo")
+        .innerText =
+        data.department +
+        " • " +
+        data.hospital;
+
+    let filtered =
+        doctorData.filter(function(d){
+
+            return d.department === data.department;
+
+        });
+
+    filtered.forEach(function(d){
+
+        box.innerHTML += `
+
+        <div class="doctor"
+        onclick="selectDoctor(this,'${d.name}')">
+
+        <div class="doctor-photo">👨‍⚕️</div>
+
+        <h3>${d.name}</h3>
+
+        <p class="speciality">
+        ${d.speciality}
+        </p>
+
+        <p>Experience: ${d.exp}</p>
+
+        <p class="stars">
+        ⭐ ${d.rating}
+        </p>
+
+        </div>
+
+        `;
+
+    });
+
+    showScreen("doctorScreen");
+}
+
+
+/* ================= DOCTOR ================= */
+
+function selectDoctor(element,name){
+
+    document
+        .querySelectorAll("#doctorScreen .doctor")
+        .forEach(function(x){
+            x.classList.remove("selected");
+        });
+
+    element.classList.add("selected");
+
+    data.doctor = name;
+}
+
+
+function goAppointment(){
+
+    if(data.doctor === ""){
+
+        alert("Please select a doctor.");
+
+        return;
+    }
+
+    document.getElementById("bookingDoctor")
+        .innerHTML =
+
+        "<b>👨‍⚕️ " +
+        data.doctor +
+        "</b><br>" +
+        data.department +
+        " • " +
+        data.hospital;
+
+    showScreen("appointmentScreen");
+}
+
+
+/* ================= APPOINTMENT ================= */
+
+function goPatient(){
+
+    data.date =
+        document.getElementById("appointmentDate").value;
+
+    data.time =
+        document.getElementById("appointmentTime").value;
+
+    if(data.date === "" || data.time === ""){
+
+        alert("Please select date and time.");
+
+        return;
+    }
+
+    showScreen("patientScreen");
+}
+
+
+/* ================= PATIENT ================= */
+
+function goSummary(){
+
+    data.name =
+        document.getElementById("patientName").value.trim();
+
+    data.mobile =
+        document.getElementById("patientMobile").value.trim();
+
+    data.age =
+        document.getElementById("patientAge").value;
+
+    data.gender =
+        document.getElementById("gender").value;
+
+    data.reason =
+        document.getElementById("reason").value.trim();
+
+
+    if(
+        data.name === "" ||
+        data.mobile === "" ||
+        data.age === "" ||
+        data.gender === ""
+    ){
+
+        alert("Please fill all patient details.");
+
+        return;
+    }
+
+    if(!/^[0-9]{10}$/.test(data.mobile)){
+
+        alert("Enter a valid 10 digit mobile number.");
+
+        return;
+    }
+
+
+    document.getElementById("sName").innerText =
+        data.name;
+
+    document.getElementById("sMobile").innerText =
+        data.mobile;
+
+    document.getElementById("sDistrict").innerText =
+        data.district;
+
+    document.getElementById("sArea").innerText =
+        data.area;
+
+    document.getElementById("sHospital").innerText =
+        data.hospital;
+
+    document.getElementById("sDepartment").innerText =
+        data.department;
+
+    document.getElementById("sDoctor").innerText =
+        data.doctor;
+
+    document.getElementById("sDate").innerText =
+        data.date;
+
+    document.getElementById("sTime").innerText =
+        data.time;
+
+    document.getElementById("sAgeGender").innerText =
+        data.age + " / " + data.gender;
+
+    document.getElementById("sReason").innerText =
+        data.reason || "General consultation";
+
+    showScreen("summaryScreen");
+}
+
+
+/* ================= CONFIRM ================= */
+
+function confirmAppointment(){
+
+    data.id =
+        "APT" +
+        Math.floor(100000 + Math.random()*900000);
+
+    document.getElementById("appointmentId")
+        .innerText = data.id;
+
+
+    document.getElementById("successDetails")
+        .innerHTML = `
+
+        <p><b>Patient:</b> ${data.name}</p>
+
+        <p><b>Hospital:</b> ${data.hospital}</p>
+
+        <p><b>Doctor:</b> ${data.doctor}</p>
+
+        <p><b>Date:</b> ${data.date}</p>
+
+        <p><b>Time:</b> ${data.time}</p>
+
+        `;
+
+
+    localStorage.setItem(
+        "smartHospitalAppointment",
+        JSON.stringify(data)
+    );
+
+    showScreen("successScreen");
+}
+
+
+/* ================= MY APPOINTMENT ================= */
+
+function showMyAppointment(){
+
+    document.getElementById("mHospital")
+        .innerText = data.hospital;
+
+    document.getElementById("mDoctor")
+        .innerText = data.doctor;
+
+    document.getElementById("mDepartment")
+        .innerText = data.department;
+
+    document.getElementById("mDate")
+        .innerText = data.date;
+
+    document.getElementById("mTime")
+        .innerText = data.time;
+
+    document.getElementById("mPatient")
+        .innerText = data.name;
+
+    document.getElementById("mMobile")
+        .innerText = data.mobile;
+
+    document.getElementById("mId")
+        .innerText = data.id;
+
+    showScreen("myAppointmentScreen");
+}
+
+</script>
+
+</body>
+</html>
